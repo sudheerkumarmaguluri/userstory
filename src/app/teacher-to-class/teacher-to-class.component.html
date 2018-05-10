@@ -1,0 +1,66 @@
+
+<!--<table>
+    <tr>
+        <th>School_Id</th>
+        <th>Teacher_Id</th>
+        <th>First_Name</th>
+        <th>Last_Name</th>
+        <th>Date_of_birth </th>
+        <th>Age</th>
+        <th>Qualification</th>
+        <th>Package</th>
+        <th>Address</th>
+        <th>Phone_Number</th>
+        
+        </tr>
+  <tr *ngFor="let t of teacher">
+   
+<td>{{t.School_id}}</td>
+<td>{{t.Teacher_id}}</td>
+  <td>{{t.First_Name}}</td>
+<td>{{t.Last_Name}}</td>
+<td>{{t.Date_of_birth}}</td>
+<td>{{t.Age}}</td>
+<td>{{t.Qualification}}</td>
+<td>{{t.Package}}</td>
+<td>{{t.Address}}</td>
+<td>{{t.Phone_Number}}</td>
+  </tr>
+  </table>-->
+  
+  <div>
+    <label>TEACHERS </label>
+    <select (change)="fetchclass($event.target.value)">
+        <option value="0">TEACHERS</option>
+        <option *ngFor="let teacherslist of teacher" value={{teacherslist.First_Name}}>
+            {{teacherslist.First_Name}}
+        </option>
+    </select>
+</div>
+<div>
+    <label>CLASSES </label>
+    <select (change)="fetchsection($event.target.value)">
+        <option value="0">CLASSES</option>
+        <option *ngFor="let classes of class" value={{classes.classes.classname}}>
+            {{classes.classes.classname}}
+        </option>
+    </select>
+</div>
+<div>
+    <label>SECTIONS</label>
+    <select (change)="fetchsubjects($event.target.value)">
+        <option value="0">SECTIONS</option>
+        <option *ngFor="let sections of section">
+            {{sections}}
+        </option>
+    </select>
+</div>
+<div>
+    <label>SUBJECTS</label>
+    <select (change)="fetchsubjects($event.target.value)">
+        <option value="0">SUBJECTS</option>
+        <option *ngFor="let subject of subjects">
+            {{subject}}
+        </option>
+    </select>
+</div>
