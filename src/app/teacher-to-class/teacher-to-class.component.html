@@ -28,25 +28,26 @@
   </tr>
   </table>-->
   
-  <div>
+  <form (ngSubmit)="onSubmit()" name="myform">
+ 
     <label>TEACHERS </label>
-    <select (change)="fetchclass($event.target.value)">
+    <select (change)="fetchclass($event.target.value)" >
         <option value="0">TEACHERS</option>
-        <option *ngFor="let teacherslist of teacher" value={{teacherslist.First_Name}}>
-            {{teacherslist.First_Name}}
+        <option *ngFor="let teacherslist of teacher" value={{teacherslist.Teacher_Name}} >
+            {{teacherslist.Teacher_Name}}
         </option>
     </select>
-</div>
-<div>
+
+
     <label>CLASSES </label>
-    <select (change)="fetchsection($event.target.value)">
+    <select (change)="fetchsection($event.target.value)" >
         <option value="0">CLASSES</option>
         <option *ngFor="let classes of class" value={{classes.classes.classname}}>
             {{classes.classes.classname}}
         </option>
     </select>
-</div>
-<div>
+
+
     <label>SECTIONS</label>
     <select (change)="fetchsubjects($event.target.value)">
         <option value="0">SECTIONS</option>
@@ -54,13 +55,37 @@
             {{sections}}
         </option>
     </select>
-</div>
-<div>
+
+
     <label>SUBJECTS</label>
-    <select (change)="fetchsubjects($event.target.value)">
+    <select (change)="fetchtimein($event.target.value)">
         <option value="0">SUBJECTS</option>
         <option *ngFor="let subject of subjects">
             {{subject}}
         </option>
     </select>
+    <label>DAY</label>
+    <select (change)="fetchtimeout($event.target.value)">
+        <option value="0">DAY</option>
+        <option *ngFor="let days of day" value={{days.Day}}>
+            {{days.Day}}        </option>
+    </select>
+<div>
+    <label>TIME IN</label>
+    <select (change)="fetchtimeout($event.target.value)">
+        <option value="0">TIME IN</option>
+        <option *ngFor="let timeins of timein" value={{timeins.Time_In}}>
+            {{timeins.Time_In}}        </option>
+    </select>
 </div>
+
+    <label>TIME OUT</label>
+    <select (change)="fetchsubjects($event.target.value)">
+        <option value="0">TIME OUT</option>
+        <option *ngFor="let timeins of timein" value={{timeins.Time_Out}}>
+            {{timeins.Time_Out}}        </option>
+    </select>
+
+<input type="submit"  value="ASSIGN CLASS"><BR>
+<input type="submit" value="CANCLE">
+   </form>

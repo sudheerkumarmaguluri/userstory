@@ -1,5 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestOptions,Request,RequestMethod,Http,Response,Headers } from '@angular/http';
+import { Component, OnInit ,NgModule,
+  Pipe
+  } from '@angular/core';
+import { RequestOptions,Request,RequestMethod,Http,Response,Headers, } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app-teacher-to-class',
@@ -8,23 +22,26 @@ import { RequestOptions,Request,RequestMethod,Http,Response,Headers } from '@ang
 })
 export class TeacherToClassComponent implements OnInit {
 
-  constructor( private http:Http) { 
+  constructor( private http: Http, private router: Router, private route: ActivatedRoute) { 
   }
   private headers =new Headers({'ContentType':'application/json'})
    teacher=[];
    class=[];
    section=[];
    subjects=[];
+   timein=[];
+   timeout=[];
+   day=[];
    fetchDate=function()
    {
 
-     this.http.get("http://10.10.5.54:3002/fetch").subscribe (
+     this.http.get("http://10.10.5.54:3004/fetch").subscribe (
        (res:Response) =>{
          this.teacher=res.json();
            // var teacherslist=this.teacher[0].First_Name;
          console.log(this.teacher)
 
-         console.log(this.teacherslist)
+         console.log(this.teacher.Teacher_Name)
 
       
        }
@@ -90,10 +107,63 @@ this.subjects=hash[pro]
 }
 
 
+fetchtimein=function()
+{
+  var hash={};
+
+  this.http.get("http://10.10.5.54:3004/fetch").subscribe (
+    (res:Response) =>{
+      this.timein=res.json();
+      console.log(this.timein)
+     
+     
+   
+    }
+)
+}
+fetchtimeout=function()
+{
+  this.http.get("http://10.10.5.54:3004/fetch").subscribe (
+    (res:Response) =>{
+      this.timein=res.json();
+      console.log(this.timeout)
+
+     
+   
+    }
+)
+}
+
+fetchday=function()
+{
+  this.http.get("http://10.10.5.54:3004/fetch").subscribe (
+    (res:Response) =>{
+      this.day=res.json();
+      console.log(this.day)
+
+     
+   
+    }
+)
+}
+
   ngOnInit() {
     this.fetchDate();
-   this.fetchclass();
-  // this.fetchsection(var pro);
+this.fetchclass();
+ // this.fetchsection();
+ this.fetchtimein();
+ this.fetchtimeout();
+ this.fetchday();
   }
-
+  onSubmit(Teacher_Name,data) {
+      this.http.put('/book/'+Teacher_Name, data)
+        .subscribe(res => {
+            let Teachername = res[Teacher_Name];
+            this.router.navigate(['/book-details', Teacher_Name ]);
+          }, (err) => {
+            console.log(err);
+          }
+        );
+    }
+    
 }
